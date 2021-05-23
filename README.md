@@ -6,7 +6,7 @@ In Spark submit: master argument will be local for localMode and yarn for hadoop
 ## Task1: Main Code Directory: CareerFoundry/src
 ## Task2: File- Task2-Architect_Diagram_Implementation_Plan.docx
 
-## Sample Output: CareerFoundry/Output
+## Test Output: CareerFoundry/Output
 
 # **`Task1: `**
 
