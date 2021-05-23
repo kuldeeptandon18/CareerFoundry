@@ -47,7 +47,8 @@ def process(master, source_table):
         transformed_df = bitcoin_df.withColumn("simple_moving_avg_5_period", when(col("rank") <= time_period - 1, None) \
                                                .otherwise(F.mean(col('price_close')).over(windowSpec))). \
             withColumn("stddev_5_period", when(col("rank") <= time_period - 1, None) \
-            .otherwise(F.stddev(col('price_close')).over(windowSpec))).withColumn("date", F.to_date("time_period_start")) \
+                       .otherwise(F.stddev(col('price_close')).over(windowSpec))).withColumn("date", F.to_date(
+            "time_period_start")) \
             .orderBy(F.desc("date"))
 
         # selecting useful columns
@@ -64,6 +65,9 @@ def process(master, source_table):
             "timestamp, price_open double, price_high double, price_low double, price_close double, volume_traded "
             "double, trades_count integer, simple_moving_avg_5_period double, stddev_5_period double, date date )")
 
+        # Just for Evaluation Purpose, Need to Comment bellow line when using in production
+        volality_data_df.show(5, False)
+
         # writing data in overwrite mode
         volality_data_df.write.mode("overwrite").insertInto("bitcoin_volatility_table")
         # Just for Output Reference purpose
@@ -77,7 +81,6 @@ def process(master, source_table):
         ranked_transformed_df = transformed_df.withColumn("order_asc", F.dense_rank().over(
             Window.partitionBy("date").orderBy("time_period_start"))).withColumn("order_desc", F.dense_rank().over(
             Window.partitionBy("date").orderBy(F.desc("time_period_start"))))
-        ranked_transformed_df.show(10, False)
 
         # Filtering Day openPrice and Close Price Data
         filtered_ranked_transformed_df = ranked_transformed_df.withColumn("open_price", ranked_transformed_df.where(
@@ -91,7 +94,9 @@ def process(master, source_table):
                                                                         max("price_high").alias("high_price"))
         # joining to get all columns, min_price, high_price, open_price, close_price
         day_data_df = grouped_df.join(filtered_df, "date", "inner")
-        day_data_df.show(10, False)
+        # Just for Evaluation Purpose, Need to Comment bellow line when using in production
+        day_data_df.show(5, False)
+        day_data_df.printSchema()
 
         spark.sql("drop table IF EXISTS bitcoin_day_data_table")
         spark.sql(
@@ -102,7 +107,6 @@ def process(master, source_table):
         day_data_df.write.mode("overwrite").insertInto("bitcoin_day_data_table")
         # Just for Output Reference purpose
         day_data_df.coalesce(1).write.mode("overwrite").csv("{}/DayData/".format(output_directory))
-
 
     except Exception as e:
         raise Exception("Error in Transformation")

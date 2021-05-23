@@ -28,7 +28,6 @@ class TestMethods(unittest.TestCase):
         recipe_df = self.spark.read.schema(self.getSchema()).option("multiline", "true").json(
             resource_directory + "ohlcv-btc-usd-history-6min-2020.json")
         recipe_df.createOrReplaceTempView("bitcoin_data_table")
-        recipe_df.printSchema()
 
         # Calling Process Function
 

@@ -6,6 +6,8 @@ In Spark submit: master argument will be local for localMode and yarn for hadoop
 ## Task1: Main Code Directory: CareerFoundry/src
 ## Task2: File- Task2-Architect_Diagram_Implementation_Plan.docx
 
+## Sample Output: CareerFoundry/Output
+
 # **`Task1: `**
 
 ### **Approach:**
@@ -13,7 +15,7 @@ In Spark submit: master argument will be local for localMode and yarn for hadoop
 Calculating the moving average, std_dev on time_period 5, can be changed by setting value to time_period variable.
 Performing a rolling window operations to calculate these averages as time proceed.
 
-2. Calculating Day Data records (date, min_price, high_price, open_price, close_price). this will be useful in other calculations to predict future movement in the price.
+2. Calculating Day Data records (date, min_price, high_price, open_price, close_price). This will be useful in other calculations to predict future movement in the price.
 
 #### Saving Data in Hive Tables: 
     1. bitcoin_volatility_table: Table with STDDEV and moving average columns
@@ -105,6 +107,26 @@ Performing a rolling window operations to calculate these averages as time proce
   1. egg file name can be different according to python version
   2. pass appropriate spark-submit config in spark submit according to size and type of data.
         1. for e.g:  spark-submit --conf SparkConfig1 --conf SparkConfig2 --py-files=pyspark_pytest-1.0-py3.7.egg ../src/main/BitCoinDataTransformation.py --master local --sourceTable SourceTable
+        
+ ## Table Schema: bitcoin_volatility_table 
+     |-- time_period_start: timestamp (nullable = true)
+     |-- time_period_end: timestamp (nullable = true)
+     |-- price_open: double (nullable = true)
+     |-- price_high: double (nullable = true)
+     |-- price_low: double (nullable = true)
+     |-- price_close: double (nullable = true)
+     |-- volume_traded: double (nullable = true)
+     |-- trades_count: integer (nullable = true)
+     |-- simple_moving_avg_5_period: double (nullable = true)
+     |-- stddev_5_period: double (nullable = true)
+     |-- date: date (nullable = true)
+ 
+ ## Table Schema: bitcoin_day_data_table 
+     |-- date: date (nullable = true)
+     |-- min_price: double (nullable = true)
+     |-- high_price: double (nullable = true)
+     |-- open_price: double (nullable = true)
+     |-- close_price: double (nullable = true)
 
   
   
