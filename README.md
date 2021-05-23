@@ -3,7 +3,8 @@ In Spark submit: master argument will be local for localMode and yarn for hadoop
 
 # Database Used: Hive
 
-## Main Code Directory: CareerFoundry/src
+## Task1: Main Code Directory: CareerFoundry/src
+## Task2: File- Task2-Architect_Diagram_Implementation_Plan.docx
 
 # **`Task1: `**
 
@@ -75,7 +76,6 @@ Performing a rolling window operations to calculate these averages as time proce
 
  1. master argument will be local for local mode and yarn for hadoop cluster mode
  2. appName is optional
- 3. inputLocation for task 2 will be output directory of task1
  
  
 ### ` Files:`
@@ -86,7 +86,7 @@ Performing a rolling window operations to calculate these averages as time proce
  
  **Egg File:** CareerFoundry/dist/pyspark_pytest-1.0-py3.7.egg
  
- ### Task 2 Document: Task2- Architect Diagram, Implementation Plan.docx
+ ### Task 2 Document: Task2-Architect_Diagram_Implementation_Plan.docx
  
  ### Considerations and Suggestions:
  
