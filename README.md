@@ -64,14 +64,10 @@ Performing a rolling window operations to calculate these averages as time proce
  
 ### ` arguments to pass: `
 
- `for recipe_part1.py:` 
+ `for BitCoinDataTransformation.py:` 
  
  --master local --appName ApplicationName --inputLocation InputFilesPath --outputLocation OutPutFilePath 
  
- `for recipe_part2.py:` 
- 
- --master local --appName ApplicationName --inputLocation OutputPathOf_recipe_part1.py --outputLocation OutPutFilePath 
-
 ` Note: `
 
  1. master argument will be local for local mode and yarn for hadoop cluster mode
