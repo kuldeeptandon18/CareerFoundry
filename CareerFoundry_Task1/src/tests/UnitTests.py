@@ -1,5 +1,5 @@
 import unittest
-from CareerFoundry.src.main import BitCoinDataTransformation
+from CareerFoundry_Task1.src.main import BitCoinDataTransformation
 from pyspark.sql.types import StructField, StructType, IntegerType, TimestampType, DoubleType
 from pyspark.sql import SparkSession
 
@@ -29,7 +29,7 @@ class TestMethods(unittest.TestCase):
             resource_directory + "ohlcv-btc-usd-history-6min-2020.json")
         recipe_df.createOrReplaceTempView("bitcoin_data_table")
 
-        # Calling Process Function
+        # Calling Process Method
 
         BitCoinDataTransformation.process("local[*]", "sourceTable")
         result = self.spark.sql("select * from bitcoin_volatility_table where date='2020-08-24'")
